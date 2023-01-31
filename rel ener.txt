@@ -1,0 +1,11 @@
+imf=emd(wnx,'MaxNumIMF',10); % Extracting 10 Intrinsic Mode Functions (IMFs) from the contaminated PCG
+for j=1:size(imf,2) % Find the energies of all the IMFs
+    Energy(1,j)=sum(imf(:,j).^2); % Energy Vector contains the energies for all the IMFs
+end
+REnergy=(Energy./sum(Energy))*100; % % REnergy contains the relative energy percentage for all the IMFs
+Ex=zeros(length(wnx),1);
+for k=1:size(imf,2)
+    if REnergy(k)>=25 % IMFs with Relative Energy greater than 25% are selected
+        Ex=Ex+imf(:,k); % Summation of selected IMFs to reconstruct the filtered PCG Signal
+    end
+end
